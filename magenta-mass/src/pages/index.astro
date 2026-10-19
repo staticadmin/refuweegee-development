@@ -21,8 +21,18 @@ import Layout from "../components/Layout.astro";
         >
         </div>
         <div class="absolute bottom-8 left-8 right-8 text-white">
-          <h1 class="text-3xl flex items-start gap-3">Get involved <span class="h-lh flex items-center shrink-0" aria-hidden="true"><span class="inline-flex h-8 w-8 rounded-full bg-white/20 items-center justify-center transition-transform duration-300 ease-in-out group-hover:scale-110"><svg class="w-4 h-4 ml-0.5" viewBox="0 0 24 24" fill="white"><polygon points="5,3 19,12 5,21"></polygon></svg></span></span></h1>
+          <h1 class="text-3xl flex items-start gap-3">Get involved <span class="h-lh flex items-center shrink-0 lg:hidden" aria-hidden="true"><span class="inline-flex h-8 w-8 rounded-full bg-white/20 items-center justify-center transition-transform duration-300 ease-in-out group-hover:scale-110"><svg class="w-4 h-4 ml-0.5" viewBox="0 0 24 24" fill="white"><polygon points="5,3 19,12 5,21"></polygon></svg></span></span></h1>
           <p class="text-lg">Help us make a difference</p>
+        </div>
+        <div
+          class="absolute bottom-8 right-8 h-12 w-12 rounded-full bg-white/20 hidden lg:flex items-center justify-center transition-transform duration-300 ease-in-out group-hover:scale-110"
+        >
+          <svg
+            class="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5"
+            viewBox="0 0 24 24"
+            fill="white"
+            aria-hidden="true"><polygon points="5,3 19,12 5,21"></polygon></svg
+          >
         </div>
       </a>
 
@@ -41,15 +51,25 @@ import Layout from "../components/Layout.astro";
       <!-- Primary image — clickable left half -->
       <a
         href="/merch"
-        class="border border-weegee-teal md:flex md:col-span-2 md:col-start-3 lg:col-span-1 lg:col-start-3 rounded-xl p-8 lg:p-6 xl:p-8 flex-col justify-start gap-3 group transition-transform duration-500 ease-in-out hover:-translate-y-1 relative"
+        class="border border-weegee-teal md:flex md:col-span-2 md:col-start-3 lg:col-span-1 lg:col-start-3 rounded-xl p-8 lg:p-6 lg:pb-20 xl:p-8 xl:pb-20 flex-col justify-start gap-3 group transition-transform duration-500 ease-in-out hover:-translate-y-1 relative"
       >
-        <h2 class="text-3xl lg:text-2xl xl:text-3xl flex items-start gap-3">Merchandise <span class="h-lh flex items-center shrink-0" aria-hidden="true"><span class="inline-flex h-8 w-8 rounded-full bg-black/10 items-center justify-center transition-transform duration-300 ease-in-out group-hover:scale-110"><svg class="w-4 h-4 ml-0.5" viewBox="0 0 24 24" fill="currentColor"><polygon points="5,3 19,12 5,21"></polygon></svg></span></span></h2>
+        <h2 class="text-3xl lg:text-2xl xl:text-3xl flex items-start gap-3">Merchandise <span class="h-lh flex items-center shrink-0 lg:hidden" aria-hidden="true"><span class="inline-flex h-8 w-8 rounded-full bg-black/10 items-center justify-center transition-transform duration-300 ease-in-out group-hover:scale-110"><svg class="w-4 h-4 ml-0.5" viewBox="0 0 24 24" fill="currentColor"><polygon points="5,3 19,12 5,21"></polygon></svg></span></span></h2>
         <p class="text-lg lg:text-base xl:text-lg">From tshirts and hoodies to caps and pin badges. Show your support with our merch!</p>
+        <div
+          class="absolute bottom-8 right-8 h-12 w-12 rounded-full bg-black/10 hidden lg:flex items-center justify-center transition-transform duration-300 ease-in-out group-hover:scale-110"
+        >
+          <svg
+            class="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            aria-hidden="true"><polygon points="5,3 19,12 5,21"></polygon></svg
+          >
+        </div>
       </a>
 
       <!-- Primary image — static right half -->
       <div
-        class="lg:col-span-1 lg:col-start-4 bg-white rounded-xl overflow-hidden border border-weegee-black/5"
+        class="lg:col-span-1 hidden lg:block lg:col-start-4 bg-white rounded-xl overflow-hidden border border-weegee-black/5"
       >
         <img
           src="/assets/merch/barrowlands_shirt.webp"
@@ -69,11 +89,21 @@ import Layout from "../components/Layout.astro";
         href="/your-donations"
         class="bg-weegee-teal rounded-xl p-8 flex flex-col justify-start gap-3 md:col-span-2 group cursor-pointer no-underline transition-transform duration-500 ease-in-out hover:-translate-y-1 relative"
       >
-        <h2 class="text-xl lg:text-4xl uppercase flex items-start gap-3">Refuweegee is 10! <span class="h-lh flex items-center shrink-0" aria-hidden="true"><span class="inline-flex h-8 w-8 rounded-full bg-black/10 items-center justify-center transition-transform duration-300 ease-in-out group-hover:scale-110"><svg class="w-4 h-4 ml-0.5" viewBox="0 0 24 24" fill="currentColor"><polygon points="5,3 19,12 5,21"></polygon></svg></span></span></h2>
+        <h2 class="text-xl lg:text-4xl uppercase flex items-start gap-3">Refuweegee is 10! <span class="h-lh flex items-center shrink-0 lg:hidden" aria-hidden="true"><span class="inline-flex h-8 w-8 rounded-full bg-black/10 items-center justify-center transition-transform duration-300 ease-in-out group-hover:scale-110"><svg class="w-4 h-4 ml-0.5" viewBox="0 0 24 24" fill="currentColor"><polygon points="5,3 19,12 5,21"></polygon></svg></span></span></h2>
         <p class="text-lg">
           Please help us exist for another ten by donating to our anniversary
           fundraiser.
         </p>
+        <div
+          class="absolute bottom-8 right-8 h-12 w-12 rounded-full bg-black/10 hidden lg:flex items-center justify-center transition-transform duration-300 ease-in-out group-hover:scale-110"
+        >
+          <svg
+            class="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            aria-hidden="true"><polygon points="5,3 19,12 5,21"></polygon></svg
+          >
+        </div>
       </a>
 
       <!-- Large bottom action card -->
@@ -87,8 +117,18 @@ import Layout from "../components/Layout.astro";
           class="flex-1 min-h-0 w-1/2 mx-auto object-contain pt-8 lg:w-3/4"
         />
         <div class="px-8 pt-3 pb-8 text-white shrink-0">
-          <h2 class="text-2xl lg:text-3xl flex items-start gap-3">Join our campaign <span class="h-lh flex items-center shrink-0" aria-hidden="true"><span class="inline-flex h-8 w-8 rounded-full bg-white/20 items-center justify-center transition-transform duration-300 ease-in-out group-hover:scale-110"><svg class="w-4 h-4 ml-0.5" viewBox="0 0 24 24" fill="white"><polygon points="5,3 19,12 5,21"></polygon></svg></span></span></h2>
+          <h2 class="text-2xl lg:text-3xl flex items-start gap-3">Join our campaign <span class="h-lh flex items-center shrink-0 lg:hidden" aria-hidden="true"><span class="inline-flex h-8 w-8 rounded-full bg-white/20 items-center justify-center transition-transform duration-300 ease-in-out group-hover:scale-110"><svg class="w-4 h-4 ml-0.5" viewBox="0 0 24 24" fill="white"><polygon points="5,3 19,12 5,21"></polygon></svg></span></span></h2>
           <p>Get your free poster</p>
+        </div>
+        <div
+          class="absolute bottom-8 right-8 h-12 w-12 rounded-full bg-white/20 hidden lg:flex items-center justify-center transition-transform duration-300 ease-in-out group-hover:scale-110"
+        >
+          <svg
+            class="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5"
+            viewBox="0 0 24 24"
+            fill="white"
+            aria-hidden="true"><polygon points="5,3 19,12 5,21"></polygon></svg
+          >
         </div>
       </a>
 
