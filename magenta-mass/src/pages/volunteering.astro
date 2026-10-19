@@ -5,12 +5,14 @@ import MailingListModal from "../components/MailingListModal.astro";
 ---
 
 <Layout title="Get involved">
-  <PageBanner slot="banner" title="Volunteering" />
+  <PageBanner slot="banner" title="Volunteering"><span slot="box">
+      We have over 100 volunteers join us every week and can always use more! 
+    </span></PageBanner>
 
   <div class="pt-12">
-    <div class="grid grid-cols-1 md:grid-cols-12 gap-6 auto-rows-auto">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 auto-rows-auto">
       <div
-        class="md:col-span-5 rounded-xl overflow-hidden border-2 border-weegee-teal bg-weegee-teal group relative"
+        class="lg:col-span-5 rounded-xl overflow-hidden border-2 border-weegee-teal bg-weegee-teal group relative"
       >
         <img
           src="/assets/volunteering/welcome_pack_volunteers.webp"
@@ -21,7 +23,7 @@ import MailingListModal from "../components/MailingListModal.astro";
       </div>
 
       <div
-        class="md:col-span-7 bg-weegee-white rounded-xl p-8 border-2 border-weegee-teal flex flex-col justify-center gap-4"
+        class="lg:col-span-7 bg-weegee-white rounded-xl lg:p-8 lg:border-2 lg:border-weegee-teal flex flex-col justify-center gap-4"
       >
         <h2
           class="text-3xl text-weegee-teal border-b pb-2 border-weegee-teal/10"
@@ -53,8 +55,20 @@ import MailingListModal from "../components/MailingListModal.astro";
         </p>
       </div>
 
+      <!-- Below lg: image before the corporate copy -->
       <div
-        class="md:col-span-6 bg-weegee-white rounded-xl p-8 border-2 border-weegee-teal flex flex-col justify-center gap-4"
+        class="lg:hidden rounded-xl overflow-hidden border-2 border-weegee-teal bg-weegee-teal group relative"
+      >
+        <img
+          src="/assets/volunteering/shop_volunteers.webp"
+          alt="Three people volunteering in the Refuweegee shop"
+          class="w-full h-full object-cover rounded-xl"
+          loading="lazy"
+        />
+      </div>
+
+      <div
+        class="lg:col-span-6 bg-weegee-white lg:rounded-xl lg:p-8 lg:border-2 border-weegee-teal flex flex-col justify-center gap-4"
       >
         <h2 class="text-3xl border-b pb-2 border-weegee-black/10">
           Corporate volunteering
@@ -75,7 +89,7 @@ import MailingListModal from "../components/MailingListModal.astro";
       </div>
 
       <div
-        class="md:col-span-6 rounded-xl overflow-hidden border-2 border-weegee-teal bg-weegee-teal group relative"
+        class="hidden lg:block lg:col-span-6 rounded-xl overflow-hidden border-2 border-weegee-teal bg-weegee-teal group relative"
       >
         <img
           src="/assets/volunteering/shop_volunteers.webp"
@@ -86,7 +100,7 @@ import MailingListModal from "../components/MailingListModal.astro";
       </div>
 
       <div
-        class="md:col-span-5 rounded-xl overflow-hidden border-2 border-weegee-teal bg-weegee-teal group relative"
+        class="lg:col-span-5 rounded-xl overflow-hidden border-2 border-weegee-teal bg-weegee-teal group relative"
       >
         <img
           src="/assets/volunteering/stacking_rails.webp"
@@ -97,7 +111,7 @@ import MailingListModal from "../components/MailingListModal.astro";
       </div>
 
       <div
-        class="md:col-span-7 bg-weegee-white rounded-xl p-8 border-2 border-weegee-teal flex flex-col justify-center gap-4"
+        class="lg:col-span-7 bg-weegee-white rounded-xl lg:p-8 lg:border-2 border-weegee-teal flex flex-col justify-center gap-4"
       >
         <h2
           class="text-3xl text-weegee-teal border-b pb-2 border-weegee-teal/10"

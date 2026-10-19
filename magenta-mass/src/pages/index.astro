@@ -5,15 +5,15 @@ import Layout from "../components/Layout.astro";
 <Layout title="Refuweegee | We're All Fae Somewhere">
   <!-- Bento Grid Layout -->
   <section class="mt-6 md:pt-12 pb-6">
-    <div class="grid grid-cols-1 md:grid-cols-4 gap-6 md:auto-rows-[250px]">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-6 md:auto-rows-[minmax(250px,auto)]">
       <!-- Large top story card -->
       <a
-        href="/your-words"
+        href="/volunteering"
         class="min-h-75 md:min-h-0 md:col-span-2 md:row-span-2 bg-white rounded-xl overflow-hidden relative group border border-weegee-black/5 transition-transform duration-500 ease-in-out hover:-translate-y-1"
       >
         <img
-          src="/assets/letter.webp"
-          alt="A handwritten community letter"
+          src="/assets/volunteering/shop_volunteers.webp"
+          alt="Volunteers in the shop"
           class="w-full h-full object-cover"
         />
         <div
@@ -21,18 +21,8 @@ import Layout from "../components/Layout.astro";
         >
         </div>
         <div class="absolute bottom-8 left-8 right-8 text-white">
-          <h1 class="text-3xl">Community stories</h1>
-          <p class="text-lg">Read letters fae a local</p>
-        </div>
-        <div
-          class="absolute bottom-8 right-8 h-12 w-12 rounded-full bg-white/20 hidden lg:flex items-center justify-center transition-transform duration-300 ease-in-out group-hover:scale-110"
-        >
-          <svg
-            class="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5"
-            viewBox="0 0 24 24"
-            fill="white"
-            aria-hidden="true"><polygon points="5,3 19,12 5,21"></polygon></svg
-          >
+          <h1 class="text-3xl flex items-start gap-3">Get involved <span class="h-lh flex items-center shrink-0" aria-hidden="true"><span class="inline-flex h-8 w-8 rounded-full bg-white/20 items-center justify-center transition-transform duration-300 ease-in-out group-hover:scale-110"><svg class="w-4 h-4 ml-0.5" viewBox="0 0 24 24" fill="white"><polygon points="5,3 19,12 5,21"></polygon></svg></span></span></h1>
+          <p class="text-lg">Help us make a difference</p>
         </div>
       </a>
 
@@ -41,47 +31,29 @@ import Layout from "../components/Layout.astro";
         class="rounded-xl bg-weegee-teal p-8 flex flex-col justify-center gap-3 md:col-span-2 md:col-start-3 group no-underline relative"
       >
         <p class="text-[16px] lg:text-lg mb-0">
-          Refuweegee is a community-led charity that helps locals welcome and
-          support those arriving in Scotland. When people are forced to flee
-          their homes, we aim to provide a warm welcome and the essentials they
-          need to feel more at home. <a class="link" href="/meet-the-team"
+          Refuweegee is a community-led charity that gives people a way to welcome and embrace those newest to arrive. We strive to ensure that people who have been forced to flee their homes arrive in Scotland to a warm welcome and some of the things that will help them to feel more at home here. <a class="link" href="/meet-the-team"
             >Read more about us</a
-          >.
+          >
         </p>
       </div>
 
-      <!-- Info card -->
-      <div class="hidden bg-weegee-yellow rounded-xl p-8 text-black">
-        <p class="text-2xl lg:text-3xl mb-2">1,500+</p>
-        <p class="text-lg">Packs delivered this month</p>
-      </div>
 
       <!-- Primary image — clickable left half -->
       <a
-        href="/copy-of-about"
-        class="hidden border border-4 border-weegee-teal md:flex md:col-span-2 md:col-start-3 lg:col-span-1 lg:col-start-3 rounded-xl p-8 flex-col justify-start gap-3 group transition-transform duration-500 ease-in-out hover:-translate-y-1 relative"
+        href="/merch"
+        class="border border-weegee-teal md:flex md:col-span-2 md:col-start-3 lg:col-span-1 lg:col-start-3 rounded-xl p-8 lg:p-6 xl:p-8 flex-col justify-start gap-3 group transition-transform duration-500 ease-in-out hover:-translate-y-1 relative"
       >
-        <h2 class="text-2xl">Welcome packs</h2>
-        <p class="text-lg">Building connections since 2015</p>
-        <div
-          class="absolute bottom-8 right-8 h-12 w-12 rounded-full bg-black/10 hidden lg:flex items-center justify-center transition-transform duration-300 ease-in-out group-hover:scale-110"
-        >
-          <svg
-            class="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5"
-            viewBox="0 0 24 24"
-            fill="currentColor"
-            aria-hidden="true"><polygon points="5,3 19,12 5,21"></polygon></svg
-          >
-        </div>
+        <h2 class="text-3xl lg:text-2xl xl:text-3xl flex items-start gap-3">Merchandise <span class="h-lh flex items-center shrink-0" aria-hidden="true"><span class="inline-flex h-8 w-8 rounded-full bg-black/10 items-center justify-center transition-transform duration-300 ease-in-out group-hover:scale-110"><svg class="w-4 h-4 ml-0.5" viewBox="0 0 24 24" fill="currentColor"><polygon points="5,3 19,12 5,21"></polygon></svg></span></span></h2>
+        <p class="text-lg lg:text-base xl:text-lg">From tshirts and hoodies to caps and pin badges. Show your support with our merch!</p>
       </a>
 
       <!-- Primary image — static right half -->
       <div
-        class="hidden lg:block lg:col-span-1 lg:col-start-4 bg-white rounded-xl overflow-hidden border border-weegee-black/5"
+        class="lg:col-span-1 lg:col-start-4 bg-white rounded-xl overflow-hidden border border-weegee-black/5"
       >
         <img
-          src="/assets/group.webp"
-          alt="Refuweegee volunteers together"
+          src="/assets/merch/barrowlands_shirt.webp"
+          alt="Refuweegee Barrowlands limited edition tshirt"
           class="w-full h-full object-cover"
           loading="lazy"
         />
@@ -91,33 +63,23 @@ import Layout from "../components/Layout.astro";
 
   <!-- section 2 -->
   <section>
-    <div class="grid grid-cols-1 md:grid-cols-4 gap-6 auto-rows-[250px]">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-6 md:auto-rows-[minmax(250px,auto)]">
       <!-- Small bottom action card -->
       <a
         href="/your-donations"
         class="bg-weegee-teal rounded-xl p-8 flex flex-col justify-start gap-3 md:col-span-2 group cursor-pointer no-underline transition-transform duration-500 ease-in-out hover:-translate-y-1 relative"
       >
-        <h2 class="text-xl lg:text-4xl uppercase">Refuweegee is 10!</h2>
+        <h2 class="text-xl lg:text-4xl uppercase flex items-start gap-3">Refuweegee is 10! <span class="h-lh flex items-center shrink-0" aria-hidden="true"><span class="inline-flex h-8 w-8 rounded-full bg-black/10 items-center justify-center transition-transform duration-300 ease-in-out group-hover:scale-110"><svg class="w-4 h-4 ml-0.5" viewBox="0 0 24 24" fill="currentColor"><polygon points="5,3 19,12 5,21"></polygon></svg></span></span></h2>
         <p class="text-lg">
           Please help us exist for another ten by donating to our anniversary
           fundraiser.
         </p>
-        <div
-          class="absolute bottom-8 right-8 h-12 w-12 rounded-full bg-black/10 hidden lg:flex items-center justify-center transition-transform duration-300 ease-in-out group-hover:scale-110"
-        >
-          <svg
-            class="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5"
-            viewBox="0 0 24 24"
-            fill="currentColor"
-            aria-hidden="true"><polygon points="5,3 19,12 5,21"></polygon></svg
-          >
-        </div>
       </a>
 
       <!-- Large bottom action card -->
       <a
         href="/safe-with-me"
-        class="md:col-span-2 md:row-span-2 md:col-start-3 bg-black rounded-xl overflow-hidden relative group border border-weegee-black/5 transition-transform duration-500 ease-in-out hover:-translate-y-1 flex flex-col"
+        class="min-h-100 md:min-h-0 md:col-span-2 md:row-span-2 md:col-start-3 bg-black rounded-xl overflow-hidden relative group border border-weegee-black/5 transition-transform duration-500 ease-in-out hover:-translate-y-1 flex flex-col"
       >
         <img
           src="/assets/safe.webp"
@@ -125,18 +87,8 @@ import Layout from "../components/Layout.astro";
           class="flex-1 min-h-0 w-1/2 mx-auto object-contain pt-8 lg:w-3/4"
         />
         <div class="px-8 pt-3 pb-8 text-white shrink-0">
-          <h2 class="text-2xl lg:text-3xl">Show your support</h2>
+          <h2 class="text-2xl lg:text-3xl flex items-start gap-3">Join our campaign <span class="h-lh flex items-center shrink-0" aria-hidden="true"><span class="inline-flex h-8 w-8 rounded-full bg-white/20 items-center justify-center transition-transform duration-300 ease-in-out group-hover:scale-110"><svg class="w-4 h-4 ml-0.5" viewBox="0 0 24 24" fill="white"><polygon points="5,3 19,12 5,21"></polygon></svg></span></span></h2>
           <p>Get your free poster</p>
-        </div>
-        <div
-          class="absolute bottom-8 right-8 h-12 w-12 rounded-full bg-white/20 hidden lg:flex items-center justify-center transition-transform duration-300 ease-in-out group-hover:scale-110"
-        >
-          <svg
-            class="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5"
-            viewBox="0 0 24 24"
-            fill="white"
-            aria-hidden="true"><polygon points="5,3 19,12 5,21"></polygon></svg
-          >
         </div>
       </a>
 
@@ -145,7 +97,7 @@ import Layout from "../components/Layout.astro";
         class="hidden md:block md:col-span-2 bg-white rounded-xl overflow-hidden border border-weegee-black/5"
       >
         <img
-          src="/assets/pens.webp"
+          src="/assets/welcome_space.webp"
           alt="Coloured pens and art materials"
           class="w-full h-full object-cover"
           loading="lazy"

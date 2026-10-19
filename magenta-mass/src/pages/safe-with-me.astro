@@ -5,7 +5,7 @@ import Layout from "../components/Layout.astro";
 <Layout title="Safe with me campaign" pageBackground="bg-weegee-black">
   <!-- Minimalist, high-impact header inside the black layout -->
   <header
-    class="max-w-6xl mx-auto px-6 pt-16 pb-8 text-weegee-white border-b border-weegee-white/10"
+    class="max-w-6xl mx-auto pt-16 pb-8 text-weegee-white border-b border-weegee-white/10"
   >
     <span
       class="text-weegee-teal text-xs uppercase tracking-widest font-bold font-sans"
@@ -14,11 +14,11 @@ import Layout from "../components/Layout.astro";
     <h1 class="text-5xl md:text-6xl text-weegee-white mt-2">Safe With Me.</h1>
   </header>
 
-  <main class="max-w-6xl mx-auto px-6 py-12 text-weegee-white">
+  <main class="max-w-6xl mx-auto py-12 text-weegee-white">
     <!-- Master Grid Wrapper -->
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
       <!-- LEFT CONTAINER: Campaign Pitch & Visual (Spans 7 columns) -->
-      <div class="lg:col-span-7 space-y-8">
+      <div class="contents md:block lg:col-span-7 md:space-y-8">
         <!-- Manifesto Block (Large Text Callout) -->
         <div
           class="bg-weegee-white/5 border-2 border-weegee-white/20 p-8 rounded-xl backdrop-blur-sm"
@@ -49,8 +49,11 @@ import Layout from "../components/Layout.astro";
             identify you or your business as a safe place to go. Simple
             community awareness and sharing of the good that we see every day.
           </p>
-          <p class="font-serif text-2xl text-weegee-teal pt-2 italic">
-            Join us. Be <span
+          <p class="font-serif text-4xl text-weegee-teal pt-2 italic">
+            Join us. 
+          </p>
+          <p class="font-serif text-4xl text-weegee-teal pt-2 italic">
+            Be <span
               class="font-bold uppercase tracking-wide not-italic text-weegee-white"
               >Safe With Me.</span
             >
@@ -59,7 +62,7 @@ import Layout from "../components/Layout.astro";
 
         <!-- The Interactive Campaign Map Embedded Cleanly -->
         <div
-          class="border-2 border-weegee-white/20 rounded-xl overflow-hidden shadow-2xl"
+          class="order-1 md:order-0 border-2 border-weegee-white/20 rounded-xl overflow-hidden shadow-2xl"
         >
           <iframe
             src="https://www.google.com/maps/d/embed?mid=1pMKBfI-hZKBY9CRYXfl5g2wH0ileEhM&ehbc=2E312F&ll=55.8617,-4.2583&z=15"
@@ -71,7 +74,7 @@ import Layout from "../components/Layout.astro";
         <!-- Safe Place Registration Form (submissions emailed via FormSubmit) -->
         <div
           id="register"
-          class="bg-weegee-white/5 border-2 border-weegee-white/20 p-6 md:p-8 rounded-xl scroll-mt-8"
+          class="order-1 md:order-0 bg-weegee-white/5 border-2 border-weegee-white/20 p-6 md:p-8 rounded-xl scroll-mt-8"
         >
           <h2 class="text-3xl text-weegee-white mb-2">Register a safe place</h2>
           <p class="text-sm text-weegee-white/70 mb-6">
@@ -226,7 +229,7 @@ import Layout from "../components/Layout.astro";
 
       <!-- RIGHT CONTAINER: The Campaign Assets & Toolkit (Spans 5 columns) -->
       <!-- Sticks dynamically to the top of the viewport on desktop as you read the left side -->
-      <div class="lg:col-span-5 lg:sticky lg:top-8 space-y-6">
+      <div class="contents md:block lg:col-span-5 lg:sticky lg:top-8 md:space-y-6">
         <!-- Poster Download Card (Dark Bento style wrapper) -->
         <div
           class="bg-weegee-black border-2 border-weegee-white/20 p-6 rounded-xl text-center flex flex-col items-center group"
@@ -241,7 +244,7 @@ import Layout from "../components/Layout.astro";
               loading="lazy"
             />
           </div>
-          <h3 class="text-lg font-bold text-weegee-white mb-2">
+          <h3 class="text-2xl font-bold text-weegee-white mb-2">
             Display the Poster
           </h3>
           <p class="text-weegee-white mb-4 max-w-sm">
@@ -261,19 +264,18 @@ import Layout from "../components/Layout.astro";
           class="bg-weegee-teal/10 border-2 border-weegee-teal/30 p-6 rounded-xl"
         >
           <div class="flex items-center gap-3 mb-3">
-            <span class="text-2xl">📍</span>
-            <h3 class="text-lg font-bold text-weegee-teal">
-              Pin Badges Available
+            <h3 class="text-2xl font-bold text-weegee-teal">
+              Merchandise
             </h3>
           </div>
           <p class="text-sm text-weegee-white leading-relaxed mb-4">
-            Pin badges are available at Refuweegee HQ, and soon in various local
+            Pin badges and caps are now available at Refuweegee HQ, and soon in local
             shops across the city. All profits directly support refugees in
             Glasgow and Scotland.
           </p>
           <p class="text-weegee-white mb-0">Want to stock them?</p>
           <p>
-            Get in touch at
+            Get in touch with
             <a
               href="mailto:enquiries@refuweegee.co.uk"
               class="link-teal"
@@ -281,6 +283,12 @@ import Layout from "../components/Layout.astro";
               enquiries@refuweegee.co.uk
             </a>
           </p>
+          <a
+            href="/merch"
+            class="block w-full mt-4 text-center bg-weegee-teal text-weegee-white font-bold py-3 px-4 rounded-xl hover:bg-weegee-white hover:text-weegee-black transition-colors text-sm"
+          >
+            Shop all merch
+          </a>
         </div>
       </div>
     </div>

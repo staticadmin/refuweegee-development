@@ -7,7 +7,7 @@ import { products, formatPence } from "../data/products";
 <Layout title="Shop | Refuweegee">
   <PageBanner slot="banner" title="Refuweegee merch" showBasket />
 
-  <main class="max-w-7xl mx-auto lg:px-6 py-6 lg:py-16">
+  <main class="max-w-7xl mx-auto py-6 lg:py-16">
     <div
       id="canceled-banner"
       class="hidden mb-8 bg-weegee-cream border-2 border-weegee-black rounded-xl px-6 py-4 items-center justify-between gap-4"
@@ -58,21 +58,21 @@ import { products, formatPence } from "../data/products";
     </div>
 
     <!-- Basket -->
-    <section id="basket" class="mt-16 bg-weegee-white border-2 border-weegee-black rounded-xl p-6">
+    <section id="basket" class="mt-16 bg-weegee-white border-2 border-weegee-black rounded-xl p-4 sm:p-6">
       <h2 class="text-2xl font-bold font-serif mb-4">Your Basket</h2>
 
       <div id="basket-empty" class="text-sm text-weegee-black/60">Your basket is empty.</div>
 
       <ul id="basket-items" class="hidden divide-y divide-weegee-black/10"></ul>
 
-      <div id="basket-footer" class="hidden mt-6 pt-6 border-t-2 border-weegee-black items-center justify-between gap-4">
+      <div id="basket-footer" class="hidden mt-6 pt-6 border-t-2 border-weegee-black flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4">
         <p class="text-lg font-bold">
           Total: <span id="basket-total">£0</span>
         </p>
         <button
           id="checkout-button"
           type="button"
-          class="bg-weegee-teal text-weegee-black px-6 py-3 rounded-xl font-bold text-sm hover:opacity-90 transition-opacity cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+          class="w-full sm:w-auto bg-weegee-teal text-weegee-black px-6 py-3 rounded-xl font-bold text-sm hover:opacity-90 transition-opacity cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
         >
           Checkout with Stripe
         </button>
@@ -84,19 +84,19 @@ import { products, formatPence } from "../data/products";
 </Layout>
 
 <template id="basket-item-template">
-  <li class="py-4 flex items-center gap-4">
-    <img class="w-16 h-16 object-cover rounded-xl border border-weegee-black/10 bg-weegee-cream" />
+  <li class="py-4 flex items-center gap-2 sm:gap-4">
+    <img class="w-16 h-16 object-cover rounded-xl border border-weegee-black/10 bg-weegee-cream hidden sm:block" />
     <div class="flex-1 min-w-0">
       <p class="font-bold truncate" data-name></p>
       <p class="text-sm text-weegee-black/60" data-unit-price></p>
     </div>
-    <div class="flex items-center gap-2">
-      <button type="button" data-decrement class="w-8 h-8 rounded-full border-2 border-weegee-black font-bold cursor-pointer hover:bg-weegee-cream">-</button>
+    <div class="flex items-center gap-1 sm:gap-2">
+      <button type="button" data-decrement class="w-10 h-10 rounded-full border-2 border-weegee-black font-bold cursor-pointer hover:bg-weegee-cream">-</button>
       <span class="w-6 text-center font-bold" data-quantity></span>
-      <button type="button" data-increment class="w-8 h-8 rounded-full border-2 border-weegee-black font-bold cursor-pointer hover:bg-weegee-cream">+</button>
+      <button type="button" data-increment class="w-10 h-10 rounded-full border-2 border-weegee-black font-bold cursor-pointer hover:bg-weegee-cream">+</button>
     </div>
-    <p class="w-16 text-right font-bold" data-line-total></p>
-    <button type="button" data-remove class="text-weegee-black/40 hover:text-red-600 cursor-pointer" aria-label="Remove item">✕</button>
+    <p class="w-14 sm:w-16 text-right font-bold" data-line-total></p>
+    <button type="button" data-remove class="p-2 -mr-2 text-weegee-black/40 hover:text-red-600 cursor-pointer" aria-label="Remove item">✕</button>
   </li>
 </template>
 

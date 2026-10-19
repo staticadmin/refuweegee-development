@@ -1,7 +1,30 @@
 ---
 import Layout from "../components/Layout.astro";
 import PageBanner from "../components/PageBanner.astro";
-import CardBlock from "../components/CardBlock.astro";
+import Button from "../components/Button.astro";
+
+const services = [
+  {
+    title: "Hang out space",
+    image: "/assets/kid.webp",
+    imageAlt: "Hang out space",
+    body: "Open 10am - 4pm Mon - Fri (excluding Wednesdays). Wifi access, socialising, and refreshments included.",
+  },
+  {
+    title: "Shop appointments",
+    image: "/assets/shop.jpg",
+    imageAlt: "Shop at Refuweegee",
+    body: "Free clothing, household items, and food selection available by appointment.",
+  },
+  {
+    title: "Events sign-up",
+    image: "/assets/events/film.webp",
+    imageAlt: "Events at Refuweegee",
+    body: "Conversation Club, Creative Club, Volunteer Socials, and more.",
+    buttonHref: "/events",
+    buttonLabel: "View upcoming events",
+  },
+];
 ---
 
 <Layout title="Make a referral">
@@ -17,30 +40,38 @@ import CardBlock from "../components/CardBlock.astro";
     <!-- Intro + emergency requests -->
 
     <!-- Three service cards -->
-    <CardBlock
-      cards={[
-        {
-          title: "Hang out space",
-          image: "/assets/kid.webp",
-          imageAlt: "Hang out space",
-          body: "Open 10am - 4pm Mon - Fri (excluding Wednesdays). Wifi access, socialising, and refreshments included.",
-        },
-        {
-          title: "Shop appointments",
-          image: "/assets/shop.jpg",
-          imageAlt: "Shop at Refuweegee",
-          body: "Free clothing, household items, and food selection available by appointment.",
-        },
-        {
-          title: "Events sign-up",
-          image: "/assets/pens.webp",
-          imageAlt: "Events at Refuweegee",
-          body: "Conversation Club, Creative Club, Volunteer Socials, and more.",
-          buttonHref: "/events",
-          buttonLabel: "View upcoming events",
-        },
-      ]}
-    />
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      {services.map((service, i) => (
+        <div class={`bg-weegee-white border-2 border-weegee-black rounded-xl overflow-hidden flex flex-col ${i % 2 === 0 ? "sm:flex-row" : "sm:flex-row-reverse"} md:flex-col justify-between group transition-all duration-300 hover:shadow-xl`}>
+          <div class="p-3 w-full sm:w-1/2 md:w-full shrink-0 aspect-square">
+            <div class="w-full h-full bg-weegee-cream rounded-xl overflow-hidden relative">
+              <img
+                src={service.image}
+                alt={service.imageAlt}
+                class="w-full h-full aspect-square object-cover transition-all duration-500"
+                loading="lazy"
+              />
+            </div>
+          </div>
+
+          <div class="px-6 pt-2 sm:pt-6 md:pt-2 pb-6 flex-1 flex flex-col justify-between sm:justify-center md:justify-between gap-4">
+            <div>
+              <h2 class="text-2xl text-weegee-black font-bold tracking-tight mb-2">
+                {service.title}
+              </h2>
+              <p class="text-sm text-weegee-black font-sans font-light leading-relaxed">
+                {service.body}
+              </p>
+            </div>
+            {service.buttonHref && service.buttonLabel && (
+              <div>
+                <Button href={service.buttonHref} label={service.buttonLabel} />
+              </div>
+            )}
+          </div>
+        </div>
+      ))}
+    </div>
     <div class="grid grid-cols-1 md:grid-cols-12 gap-6">
       <div
         class="md:col-span-12 bg-weegee-yellow rounded-xl p-8 border-2 border-weegee-yellow flex flex-col justify-center gap-2"

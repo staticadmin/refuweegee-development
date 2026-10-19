@@ -19,7 +19,7 @@ export const products: Product[] = [
     name: "Barrowlands tee",
     priceInPence: 2200,
     category: "T-Shirt",
-    image: "https://picsum.photos/200/200",
+    image: "../../public/assets/merch/barrowlands_shirt.webp",
   },
   {
     id: 3,

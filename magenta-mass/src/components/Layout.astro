@@ -17,7 +17,7 @@ const { title, pageBackground = "bg-white" } = Astro.props;
   <head>
     <meta charset="UTF-8" />
     <meta name="description" content="Refuweegee - We're all fae somewhere" />
-    <meta name="viewport" content="width=device-width" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -257,7 +257,7 @@ const { title, pageBackground = "bg-white" } = Astro.props;
 
     <main class=`${pageBackground} pb-10 md:pb-12 font-sans`>
       <slot name="banner" />
-      <div class="max-w-7xl mx-auto px-2 md:px-6">
+      <div class="max-w-7xl mx-auto px-6">
         <slot />
       </div>
     </main>
@@ -362,7 +362,7 @@ const { title, pageBackground = "bg-white" } = Astro.props;
           >Donate</span
         >
       </a>
-      <a href="/copy-of-about" class="flex flex-col items-center gap-1 group">
+      <a href="/volunteering" class="flex flex-col items-center gap-1 group">
         <img
           src="/assets/svgs/volunteer.svg"
           alt=""
