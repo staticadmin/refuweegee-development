@@ -9,34 +9,48 @@ import {
 
 export const prerender = false;
 
-Astro.response.headers.set(
-  "Cache-Control",
-  "public, s-maxage=3600, stale-while-revalidate=86400",
-);
-
 let events: TicketTailorEvent[] = [];
 try {
   events = await fetchUpcomingEvents();
+  // Short cache so new events appear within minutes.
+  Astro.response.headers.set(
+    "Cache-Control",
+    "public, s-maxage=300, stale-while-revalidate=3600",
+  );
 } catch (err) {
   console.error("Failed to load events:", err);
+  // Don't let a failed fetch get cached as "no upcoming events".
+  Astro.response.headers.set("Cache-Control", "no-store");
 }
 
-const formatStart = (start?: string) => {
-  if (!start) return null;
-  const date = new Date(start);
-  if (Number.isNaN(date.getTime())) return null;
-  const datePart = date.toLocaleDateString("en-GB", {
+// Always UK time: the server runs in UTC, which would be an hour out in summer.
+const TZ = "Europe/London";
+
+const toDate = (iso?: string) => {
+  if (!iso) return null;
+  const d = new Date(iso);
+  return Number.isNaN(d.getTime()) ? null : d;
+};
+
+const formatDate = (d: Date) =>
+  d.toLocaleDateString("en-GB", {
+    timeZone: TZ,
     weekday: "long",
     day: "numeric",
     month: "long",
     year: "numeric",
   });
-  const timePart = date.toLocaleTimeString("en-GB", {
+
+const formatTime = (d: Date) =>
+  d.toLocaleTimeString("en-GB", {
+    timeZone: TZ,
     hour: "2-digit",
     minute: "2-digit",
   });
-  return `${datePart} – ${timePart}`;
-};
+
+/** "18:00 – 19:30", or just the start time if there's no end. */
+const formatTimes = (start: Date, end: Date | null) =>
+  end ? `${formatTime(start)} – ${formatTime(end)}` : formatTime(start);
 
 const eventImages: [RegExp, string][] = [
   [/knitting/i, "/assets/events/knitting.webp"],
@@ -48,18 +62,16 @@ const eventImages: [RegExp, string][] = [
   [/cinema|documentary|film|filmmaking|movie/i, "/assets/events/film.webp"],
 ];
 
-// Our own illustrations first so the page keeps a consistent look; then the
-// image uploaded to Ticket Tailor; then the default.
+// Always our own illustrations (not Ticket Tailor's images), matched on title.
 const imageFor = (event: TicketTailorEvent) =>
   eventImages.find(([pattern]) => pattern.test(event.title))?.[1] ??
-  event.image ??
   "/assets/events/default.webp";
 ---
 
 <Layout title="Events">
   <PageBanner slot="banner" title="Events">
     <span slot="box">
-      <p>
+      <p class="mb-4">
         We run a range of community events — from wellbeing classes to social
         gatherings. Everyone is welcome.
       </p>
@@ -73,7 +85,10 @@ const imageFor = (event: TicketTailorEvent) =>
   </PageBanner>
 
   <div class="pt-12 flex flex-col gap-10">
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div
+      id="events-grid"
+      class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+    >
       {
         events.length === 0 && (
           <p class="text-base leading-relaxed">
@@ -83,17 +98,23 @@ const imageFor = (event: TicketTailorEvent) =>
       }
       {
         events.map((event) => {
-          const when = formatStart(event.start);
+          const start = toDate(event.start);
+          const end = toDate(event.end);
           const image = imageFor(event);
           const soldOut = event.ticketsAvailable === false;
           return (
             <Card
               title={event.title}
               image={image}
-              buttonHref={event.url}
+              buttonHref={event.checkoutUrl}
               buttonLabel={soldOut ? "Sold out" : "Book"}
             >
-              {when && <p class="font-semibold mb-1">{when}</p>}
+              {start && (
+                <>
+                  <p class="font-semibold">{formatDate(start)}</p>
+                  <p class="mb-1">{formatTimes(start, end)}</p>
+                </>
+              )}
               {event.location && <p>{event.location}</p>}
             </Card>
           );
@@ -102,3 +123,44 @@ const imageFor = (event: TicketTailorEvent) =>
     </div>
   </div>
 </Layout>
+
+<script>
+  // "Book" opens Ticket Tailor's checkout in a small pop-up window, so the whole
+  // booking happens there while the events page stays open behind it.
+  // (Ticket Tailor won't complete a checkout embedded in our page: it forces a
+  // new tab, because browsers block its cookies inside iframes.)
+  // If the window is blocked, on small screens, or with JS off, the link just
+  // opens normally.
+  const grid = document.getElementById("events-grid");
+  const WIDTH = 520;
+  const HEIGHT = 760;
+
+  grid?.addEventListener("click", (e) => {
+    const me = e as MouseEvent;
+    // Let ctrl/cmd/shift/middle-click open a normal tab.
+    if (me.button !== 0 || me.metaKey || me.ctrlKey || me.shiftKey) return;
+
+    const link = (e.target as Element).closest<HTMLAnchorElement>(
+      'a[href^="https://www.tickettailor.com/"]',
+    );
+    if (!link) return;
+
+    // On phones a separate window isn't useful (it opens as a full tab anyway).
+    if (window.innerWidth < 640) return;
+
+    const w = Math.min(WIDTH, screen.availWidth);
+    const h = Math.min(HEIGHT, screen.availHeight);
+    const left = Math.round(window.screenX + (window.outerWidth - w) / 2);
+    const top = Math.round(window.screenY + (window.outerHeight - h) / 2);
+
+    const popup = window.open(
+      link.href,
+      "tt-booking",
+      `popup,width=${w},height=${h},left=${left},top=${top}`,
+    );
+    if (popup) {
+      e.preventDefault();
+      popup.focus();
+    }
+  });
+</script>
