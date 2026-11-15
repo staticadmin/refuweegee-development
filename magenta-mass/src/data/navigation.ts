@@ -10,17 +10,20 @@ export interface NavDropdown {
 
 export const navDropdowns: NavDropdown[] = [
   {
-    label: "Who we are",
+    label: "What we do",
     items: [
-      { label: "Meet the team", href: "/meet-the-team" },
+      { label: "About us", href: "/about-us" },
+      { label: "Visit our welcome space", href: "/visit-our-welcome-space" },
+      { label: "Our free shop", href: "/our-free-shop" },
       { label: "FAQs", href: "/faqs" },
     ],
   },
   {
-    label: "What we do",
+    label: "Who we are",
     items: [
-      { label: "Merch", href: "/merch" },
-      { label: "The shop (referral only)", href: "/shop" },
+      { label: "Meet the team", href: "/meet-the-team" },
+      { label: "Meet the Board", href: "/meet-the-board" },
+      { label: "Meet our volunteers", href: "/meet-our-volunteers" },
     ],
   },
   {
@@ -28,9 +31,8 @@ export const navDropdowns: NavDropdown[] = [
     items: [
       { label: "Volunteering", href: "/volunteering" },
       { label: "Fundraise for us", href: "/fundraise" },
-      { label: "Make a referral", href: "/referrals" },
       { label: "Your donations", href: "/your-donations" },
-      { label: "Welcome packs", href: "/welcome-packs" },
+      { label: "Welcome pack building", href: "/welcome-packs" },
     ],
   },
 ];

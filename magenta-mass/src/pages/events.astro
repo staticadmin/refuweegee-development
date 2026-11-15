@@ -2,7 +2,10 @@
 import Layout from "../components/Layout.astro";
 import PageBanner from "../components/PageBanner.astro";
 import Card from "../components/Card.astro";
-import { fetchUpcomingEvents, type WixEvent } from "../lib/events";
+import {
+  fetchUpcomingEvents,
+  type TicketTailorEvent,
+} from "../lib/ticket-tailor";
 
 export const prerender = false;
 
@@ -11,7 +14,7 @@ Astro.response.headers.set(
   "public, s-maxage=3600, stale-while-revalidate=86400",
 );
 
-let events: WixEvent[] = [];
+let events: TicketTailorEvent[] = [];
 try {
   events = await fetchUpcomingEvents();
 } catch (err) {
@@ -45,8 +48,11 @@ const eventImages: [RegExp, string][] = [
   [/cinema|documentary|film|filmmaking|movie/i, "/assets/events/film.webp"],
 ];
 
-const imageFor = (title: string) =>
-  eventImages.find(([pattern]) => pattern.test(title))?.[1] ??
+// Our own illustrations first so the page keeps a consistent look; then the
+// image uploaded to Ticket Tailor; then the default.
+const imageFor = (event: TicketTailorEvent) =>
+  eventImages.find(([pattern]) => pattern.test(event.title))?.[1] ??
+  event.image ??
   "/assets/events/default.webp";
 ---
 
@@ -78,13 +84,14 @@ const imageFor = (title: string) =>
       {
         events.map((event) => {
           const when = formatStart(event.start);
-          const image = imageFor(event.title);
+          const image = imageFor(event);
+          const soldOut = event.ticketsAvailable === false;
           return (
             <Card
               title={event.title}
               image={image}
               buttonHref={event.url}
-              buttonLabel="Book"
+              buttonLabel={soldOut ? "Sold out" : "Book"}
             >
               {when && <p class="font-semibold mb-1">{when}</p>}
               {event.location && <p>{event.location}</p>}

@@ -1,0 +1,173 @@
+---
+import Layout from "../components/Layout.astro";
+import PageBanner from "../components/PageBanner.astro";
+import { volunteers, volunteerPosts, type PostSize } from "../data/volunteers";
+
+const sizeClasses: Record<PostSize, string> = {
+  small: "md:col-span-1 md:row-span-1",
+  wide: "md:col-span-2 md:row-span-1",
+  tall: "md:col-span-1 md:row-span-2",
+  large: "md:col-span-2 md:row-span-2",
+};
+
+const typeLabel = {
+  video: "Video",
+  testimonial: "Testimonial",
+};
+
+// Label pill sitting over images / on coloured cards
+const overlayLabel =
+  "inline-block text-xs uppercase tracking-wider font-bold px-3 pt-1.5 pb-2 rounded-full bg-weegee-white text-weegee-black";
+---
+
+<Layout title="Meet our Volunteers">
+  <PageBanner slot="banner" title="Meet our volunteers">
+    <span slot="box">
+      None of what we do would be possible without our brilliant volunteers.
+      Here are some of the people who give their time to welcome others to
+      Glasgow.
+    </span>
+  </PageBanner>
+  <main class="max-w-7xl mx-auto pt-6 lg:pt-12">
+    <!-- Volunteer cards -->
+    <div class="mb-8">
+      <h2 class="text-4xl text-weegee-teal tracking-tight font-bold">
+        Our volunteers
+      </h2>
+    </div>
+
+    <ul class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
+      {volunteers.map((volunteer) => (
+        <li class="bg-weegee-white border-2 border-weegee-black rounded-xl overflow-hidden flex flex-col transition-all duration-300 hover:shadow-xl">
+          <div class="p-3 w-full aspect-square">
+            <div class="w-full h-full bg-weegee-black/5 rounded-xl overflow-hidden border border-weegee-black/5 relative flex items-center justify-center">
+              {volunteer.image ? (
+                <img
+                  src={volunteer.image}
+                  alt={volunteer.name}
+                  class="w-full h-full aspect-square object-cover"
+                  loading="lazy"
+                />
+              ) : (
+                <img
+                  src="/assets/volunteer.svg"
+                  alt=""
+                  aria-hidden="true"
+                  class="w-1/2 h-1/2 object-contain opacity-40"
+                />
+              )}
+            </div>
+          </div>
+          <h3 class="px-4 md:px-6 pb-4 md:pb-6 pt-1 text-lg md:text-2xl text-weegee-black font-bold tracking-tight">
+            {volunteer.name}
+          </h3>
+        </li>
+      ))}
+    </ul>
+
+    <hr class="border-weegee-black/10 my-10" />
+
+    <!-- Bento: photos, videos and testimonials -->
+    <div class="mb-8">
+      <h2 class="text-4xl text-weegee-teal tracking-tight font-bold">
+        Volunteer stories
+      </h2>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-6 md:auto-rows-[minmax(250px,auto)] md:grid-flow-dense">
+      {volunteerPosts.map((post) => {
+        if (post.type === "testimonial") {
+          return (
+            <figure
+              class={`${sizeClasses[post.size]} bg-weegee-teal text-weegee-black rounded-xl p-8 flex flex-col gap-4`}
+            >
+              <h3 class="self-start text-xs uppercase tracking-wider font-bold px-3 pt-1.5 pb-2 rounded-full bg-weegee-black text-weegee-white">
+                {typeLabel.testimonial}
+              </h3>
+              <blockquote class="text-lg lg:text-xl leading-relaxed flex-1">
+                <p>&ldquo;{post.quote}&rdquo;</p>
+              </blockquote>
+              <figcaption>
+                <span class="font-bold">{post.name}</span>
+                {post.detail && (
+                  <span class="block text-sm opacity-80">{post.detail}</span>
+                )}
+              </figcaption>
+            </figure>
+          );
+        }
+
+        if (post.type === "video") {
+          return (
+            <figure
+              class={`${sizeClasses[post.size]} min-h-62.5 bg-weegee-black rounded-xl overflow-hidden relative`}
+            >
+              {post.embedUrl ? (
+                <iframe
+                  src={post.embedUrl}
+                  title={post.alt}
+                  class="absolute inset-0 w-full h-full"
+                  loading="lazy"
+                  allow="accelerometer; encrypted-media; gyroscope; picture-in-picture"
+                  allowfullscreen
+                />
+              ) : post.src ? (
+                <video
+                  src={post.src}
+                  poster={post.poster}
+                  controls
+                  preload="none"
+                  class="absolute inset-0 w-full h-full object-cover"
+                >
+                  <track kind="captions" />
+                </video>
+              ) : (
+                <>
+                  <img
+                    src={post.poster}
+                    alt={post.alt}
+                    class="absolute inset-0 w-full h-full object-cover"
+                    loading="lazy"
+                  />
+                  <div class="absolute inset-0 bg-weegee-black/30 flex items-center justify-center">
+                    <span class="h-16 w-16 rounded-full bg-white/30 flex items-center justify-center">
+                      <svg class="w-7 h-7 ml-1" viewBox="0 0 24 24" fill="white" aria-hidden="true">
+                        <polygon points="5,3 19,12 5,21" />
+                      </svg>
+                    </span>
+                  </div>
+                </>
+              )}
+              <h3 class={`absolute top-4 left-4 ${overlayLabel} pointer-events-none`}>
+                {typeLabel.video}
+              </h3>
+              {post.caption && !post.embedUrl && !post.src && (
+                <figcaption class="absolute bottom-0 inset-x-0 p-6 pt-12 bg-linear-to-t from-weegee-black/90 to-transparent text-white text-lg">
+                  {post.caption}
+                </figcaption>
+              )}
+            </figure>
+          );
+        }
+
+        return (
+          <figure
+            class={`${sizeClasses[post.size]} min-h-62.5 bg-white rounded-xl overflow-hidden relative`}
+          >
+            <img
+              src={post.image}
+              alt={post.alt}
+              class="absolute inset-0 w-full h-full object-cover"
+              loading="lazy"
+            />
+            {post.caption && (
+              <figcaption class="absolute bottom-0 inset-x-0 p-6 pt-12 bg-linear-to-t from-weegee-black/90 to-transparent text-white text-lg">
+                {post.caption}
+              </figcaption>
+            )}
+          </figure>
+        );
+      })}
+    </div>
+  </main>
+</Layout>

@@ -1,93 +1,215 @@
 ---
 import Layout from "../components/Layout.astro";
 import PageBanner from "../components/PageBanner.astro";
-import Button from "../components/Button.astro";
 
-const services = [
+type Style = "teal" | "outline";
+
+type TextTile = {
+  kind: "text";
+  title: string;
+  body: string;
+  style: Style;
+  href: string;
+  linkLabel: string;
+  place: string;
+};
+
+type ImageTile = {
+  kind: "image";
+  image: string;
+  imageAlt: string;
+  place: string;
+};
+
+type Tile = TextTile | ImageTile;
+
+/*
+ * Bento layout — 3 columns from lg (the homepage uses 4, so this reads differently):
+ *
+ *   ┌──────────┬─────────────────────┐
+ *   │ Welcome  │  group photo        │
+ *   │ space +  ├──────────┬──────────┤
+ *   │ hours    │pack photo│  Events  │
+ *   ├──────────┼──────────┼──────────┤
+ *   │ shop     │  Shop    │  kid     │
+ *   │ photo    │  text    │  photo   │
+ *   ├──────────┴──────────┤          │
+ *   │  Welcome packs text │          │
+ *   ├─────────────────────┴──────────┤
+ *   │  Emergency requests            │
+ *   └────────────────────────────────┘
+ *
+ * md is a 2-column auto-flow, so tiles pair up card / photo.
+ * Tiles are listed in mobile reading order.
+ */
+const tiles: Tile[] = [
   {
-    title: "Hang out space",
-    image: "/assets/kid.webp",
-    imageAlt: "Hang out space",
-    body: "Open 10am - 4pm Mon - Fri (excluding Wednesdays). Wifi access, socialising, and refreshments included.",
+    kind: "image",
+    image: "/assets/group.webp",
+    imageAlt:
+      "People chatting around tables in the welcome space, with a bookshelf of children's books in the foreground",
+    place: "lg:col-span-2 lg:col-start-2 lg:row-start-1",
   },
   {
-    title: "Shop appointments",
+    kind: "text",
+    title: "Events sign-up",
+    body: "We hold a variety of events at Refuweegee that you'll find regularly updated here.",
+    style: "outline",
+    href: "/events",
+    linkLabel: "View upcoming events",
+    place: "lg:col-start-3 lg:row-start-2",
+  },
+  {
+    kind: "image",
+    image: "/assets/kid.webp",
+    imageAlt:
+      "A smiling child in a bunny-ear hoodie in the welcome space, with a team member pulling a funny face behind them",
+    // Tall slot: portrait photo with a blurred background, so it needs the
+    // height to keep the (in-focus) child as the subject.
+    place: "lg:row-span-2 lg:col-start-3 lg:row-start-3",
+  },
+  {
+    kind: "text",
+    title: "Our free shop",
+    body: "Free clothing, household items, and food selection available by appointment.",
+    style: "teal",
+    href: "/our-free-shop",
+    linkLabel: "Book a shop appointment",
+    place: "lg:col-start-2 lg:row-start-3",
+  },
+  {
+    kind: "image",
     image: "/assets/shop.jpg",
     imageAlt: "Shop at Refuweegee",
-    body: "Free clothing, household items, and food selection available by appointment.",
+    place: "lg:col-start-1 lg:row-start-3",
   },
   {
-    title: "Events sign-up",
-    image: "/assets/events/film.webp",
-    imageAlt: "Events at Refuweegee",
-    body: "Conversation Club, Creative Club, Volunteer Socials, and more.",
-    buttonHref: "/events",
-    buttonLabel: "View upcoming events",
+    kind: "text",
+    title: "Welcome packs",
+    body: "Put together by people across Glasgow, with toiletries, a wee taste of Scotland and a welcome letter fae a local. You can collect one from our Welcome Space, and partner organisations can request packs to hand out at their own sites.",
+    style: "outline",
+    href: "/welcome-packs",
+    linkLabel: "More about welcome packs",
+    place: "lg:col-span-2 lg:col-start-1 lg:row-start-4",
   },
+  {
+    kind: "image",
+    image: "/assets/welcome/welcome_pack.webp",
+    imageAlt: "A Refuweegee welcome pack",
+    // Spans both columns on md so the 2-col flow doesn't leave a gap.
+    place: "md:col-span-2 lg:col-span-1 lg:col-start-2 lg:row-start-2",
+  },
+];
+
+const styleClasses: Record<Style, string> = {
+  teal: "bg-weegee-teal text-weegee-black",
+  outline: "border border-weegee-teal text-weegee-black",
+};
+
+const days = [
+  { day: "Mon", open: true },
+  { day: "Tue", open: true },
+  { day: "Wed", open: false },
+  { day: "Thu", open: true },
+  { day: "Fri", open: true },
 ];
 ---
 
-<Layout title="Make a referral">
-  <PageBanner slot="banner" title="Make a referral">
+<Layout title="Visit our welcome space">
+  <PageBanner slot="banner" title="Visit our welcome space">
     <span slot="box">
-      Working alongside partners is crucial to helping us reach some of the most
-      vulnerable people in the city. You can make a referral to us through one
-      of the following ways.
+      Our Welcome Space in the heart of Glasgow is open to everyone. Drop in for a cuppa and a chat, pick up a Welcome pack, join one of our events, or make an appointment through our partner organisations to visit our free shop.
     </span>
   </PageBanner>
 
-  <div class="pt-12 flex flex-col gap-6">
-    <!-- Intro + emergency requests -->
+  <div
+    class="pt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:auto-rows-[minmax(250px,auto)]"
+  >
+    <!-- Welcome space: tall teal anchor tile with opening hours -->
+    <div
+      class="md:col-span-2 lg:col-span-1 lg:col-start-1 lg:row-start-1 lg:row-span-2 bg-weegee-teal text-weegee-black rounded-xl p-8 flex flex-col gap-6"
+    >
+      <h2 class="text-2xl lg:text-3xl">Welcome space and guided support</h2>
+      <div class="flex flex-col gap-3">
+        <p class="text-4xl font-black">10am – 4pm</p>
+        <ul class="flex gap-2" aria-label="Opening days">
+          {
+            days.map(({ day, open }) => (
+              <li
+                class={`flex-1 text-center rounded-lg py-2 text-sm font-semibold ${
+                  open
+                    ? "bg-weegee-black text-weegee-white"
+                    : "border border-black/30 text-black/50"
+                }`}
+              >
+                {day}
+                <span class="sr-only">{open ? " open" : " closed"}</span>
+              </li>
+            ))
+          }
+        </ul>
+        <p class="text-sm text-black/70">Monday to Friday, closed Wednesdays</p>
+      </div>
+      <p class="text-base lg:text-lg mt-auto">
+        Wifi access, socialising, and refreshments included.
+      </p>
+    </div>
 
-    <!-- Three service cards -->
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-      {services.map((service, i) => (
-        <div class={`bg-weegee-white border-2 border-weegee-black rounded-xl overflow-hidden flex flex-col ${i % 2 === 0 ? "sm:flex-row" : "sm:flex-row-reverse"} md:flex-col justify-between group transition-all duration-300 hover:shadow-xl`}>
-          <div class="p-3 w-full sm:w-1/2 md:w-full shrink-0 aspect-square">
-            <div class="w-full h-full bg-weegee-cream rounded-xl overflow-hidden relative">
+    {
+      tiles.map((tile) => {
+        if (tile.kind === "image") {
+          return (
+            <div
+              class={`${tile.place} relative min-h-62.5 bg-white rounded-xl overflow-hidden`}
+            >
               <img
-                src={service.image}
-                alt={service.imageAlt}
-                class="w-full h-full aspect-square object-cover transition-all duration-500"
+                src={tile.image}
+                alt={tile.imageAlt}
+                class="absolute inset-0 w-full h-full object-cover"
                 loading="lazy"
               />
             </div>
-          </div>
+          );
+        }
 
-          <div class="px-6 pt-2 sm:pt-6 md:pt-2 pb-6 flex-1 flex flex-col justify-between sm:justify-center md:justify-between gap-4">
-            <div>
-              <h2 class="text-2xl text-weegee-black font-bold tracking-tight mb-2">
-                {service.title}
-              </h2>
-              <p class="text-sm text-weegee-black font-sans font-light leading-relaxed">
-                {service.body}
-              </p>
-            </div>
-            {service.buttonHref && service.buttonLabel && (
-              <div>
-                <Button href={service.buttonHref} label={service.buttonLabel} />
-              </div>
-            )}
-          </div>
-        </div>
-      ))}
-    </div>
-    <div class="grid grid-cols-1 md:grid-cols-12 gap-6">
-      <div
-        class="md:col-span-12 bg-weegee-yellow rounded-xl p-8 border-2 border-weegee-yellow flex flex-col justify-center gap-2"
-      >
-        <h2 class="text-2xl text-weegee-black">Emergency requests</h2>
-        <p class="text-base leading-relaxed text-weegee-black">
-          We will always do everything we can to help in emergency
-          circumstances. We have a password protected request form for partner
-          organisations. If you do not have details of this please contact{" "}
-          <a href="mailto:enquiries@refuweegee.co.uk" class="link">
-            enquiries@refuweegee.co.uk
-          </a>{" "}
-          or call our office on{" "}
-          <a href="tel:01414010756" class="link">0141 401 0756</a>.
-        </p>
-      </div>
+        return (
+          <a
+            href={tile.href}
+            class={`${tile.place} ${styleClasses[tile.style]} rounded-xl p-8 flex flex-col gap-3 group no-underline transition-transform duration-500 ease-in-out hover:-translate-y-1`}
+          >
+            <h2 class="text-2xl lg:text-3xl">{tile.title}</h2>
+            <p class="text-base lg:text-lg">{tile.body}</p>
+            <span class="mt-auto pt-2 flex items-center justify-between gap-3 font-semibold">
+              {tile.linkLabel}
+              <span
+                class="inline-flex h-12 w-12 shrink-0 rounded-full bg-black/10 items-center justify-center transition-transform duration-300 ease-in-out group-hover:scale-110"
+                aria-hidden="true"
+              >
+                <svg class="w-5 h-5 ml-0.5" viewBox="0 0 24 24" fill="currentColor">
+                  <polygon points="5,3 19,12 5,21" />
+                </svg>
+              </span>
+            </span>
+          </a>
+        );
+      })
+    }
+
+    <!-- Emergency requests: full-width footer of the grid -->
+    <div
+      class="md:col-span-2 lg:col-span-3 lg:row-start-5 bg-weegee-yellow rounded-xl p-8 flex flex-col justify-center gap-2"
+    >
+      <h2 class="text-2xl text-weegee-black">Emergency requests</h2>
+      <p class="text-base leading-relaxed text-weegee-black">
+        We will always do everything we can to help in emergency
+        circumstances. We have a password protected request form for partner
+        organisations. If you do not have details of this please contact{" "}
+        <a href="mailto:enquiries@refuweegee.co.uk" class="link">
+          enquiries@refuweegee.co.uk
+        </a>{" "}
+        or call our office on{" "}
+        <a href="tel:01414010756" class="link">0141 401 0756</a>.
+      </p>
     </div>
   </div>
 </Layout>
